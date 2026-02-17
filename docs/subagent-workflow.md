@@ -2,7 +2,10 @@
 
 ## Overview
 
-Main Agent (Senox/Sonnet) orchestriert Sub-Agents (Codex) für Task-Execution + Review-Loops.
+Main Agent orchestriert Sub-Agents für Task-Execution + Review-Loops.
+
+> **Note:** Agent names (Main Agent, Implementation Agent, Review Agent) are examples.
+> Use your own agent names from your OpenClaw config.
 
 ## Steps
 
@@ -11,7 +14,7 @@ Read plan from `docs/plans/[date]-[feature].md`
 
 ### 2. For Each Task
 
-#### 2a. Dispatch Implementation Sub-Agent (Codex)
+#### 2a. Dispatch Implementation Sub-Agent
 Prompt Template:
 ```
 You are implementing Task N from the plan.
@@ -43,7 +46,7 @@ BEFORE reporting Done:
 Do NOT say "Done" without verification output.
 ```
 
-#### 2b. Review Implementation (DrNeuron)
+#### 2b. Review Implementation
 Prompt Template:
 ```
 Code Review for Task N.
@@ -69,9 +72,9 @@ If CRITICAL/HIGH issues: REJECT, list fixes needed.
 ```
 
 #### 2c. Fix Loop (if REJECT)
-If DrNeuron rejects:
-1. Dispatch Fixer Sub-Agent (Codex) with DrNeuron's feedback
-2. Re-run DrNeuron Review
+If Review rejects:
+1. Dispatch Fixer Sub-Agent with Review's feedback
+2. Re-run Review
 3. Repeat until APPROVE
 
 ### 3. Commit
@@ -95,7 +98,7 @@ npm test  # or equivalent
 
 **No skipping:**
 - Self-Reflection (implementer)
-- DrNeuron Review
+- Review Agent Review
 - Verification command output
 
 **If gate fails:**
@@ -105,17 +108,17 @@ npm test  # or equivalent
 ## Example Session
 
 ```
-[Senox] Loading plan: docs/plans/2026-02-17-add-caching.md
-[Senox] Dispatching Task 1 implementation (Codex)...
-[Codex] Read skills: TDD, Verification
-[Codex] Implementing Task 1...
-[Codex] Tests pass. Self-reflection: Looks good. Report: [...]
-[Senox] Dispatching Code Review (DrNeuron)...
-[DrNeuron] CRITICAL: No edge case test for null key. REJECT.
-[Senox] Dispatching Fixer (Codex) with feedback...
-[Codex] Added null-key test. Tests pass. Report: [...]
-[Senox] Re-review (DrNeuron)...
-[DrNeuron] APPROVE.
-[Senox] Committing Task 1...
-[Senox] Next: Task 2...
+[Main] Loading plan: docs/plans/2026-02-17-add-caching.md
+[Main] Dispatching Task 1 implementation (Impl)...
+[Impl] Read skills: TDD, Verification
+[Impl] Implementing Task 1...
+[Impl] Tests pass. Self-reflection: Looks good. Report: [...]
+[Main] Dispatching Code Review (Review)...
+[Review] CRITICAL: No edge case test for null key. REJECT.
+[Main] Dispatching Fixer (Impl) with feedback...
+[Impl] Added null-key test. Tests pass. Report: [...]
+[Main] Re-review (Review)...
+[Review] APPROVE.
+[Main] Committing Task 1...
+[Main] Next: Task 2...
 ```

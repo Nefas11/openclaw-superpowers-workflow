@@ -8,14 +8,17 @@ For features requiring >3 files or >30 min work:
 # 1. Trigger Brainstorming
 "I want to add [feature]"
 
-# 2. Senox asks clarifying questions
+# 2. Main Agent asks clarifying questions
 # 3. After design approval, Planning starts
-# 4. Senox orchestrates Sub-Agents:
-#    - Codex: Implementation
-#    - DrNeuron: Code Review
+# 4. Main Agent orchestrates Sub-Agents:
+#    - Implementation Agent: Coding
+#    - Review Agent: Code Review
 #    - Repeat per task
 # 5. Final verification + merge
 ```
+
+> **Note:** Agent names (Main Agent, Implementation Agent, Review Agent) are examples.
+> Use your own agent names from your OpenClaw config.
 
 ## Skills Used
 
