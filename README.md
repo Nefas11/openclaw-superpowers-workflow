@@ -102,7 +102,7 @@ MIT License - see [LICENSE](LICENSE)
 ## 🙏 Credits
 
 - **Jesse Vincent** for creating [Superpowers](https://github.com/obra/superpowers)
-- **Peter Steinberger** for OpenClaw
+- **Peter Steinberger** (@steipete) for creating OpenClaw
 - Community contribution for OpenClaw-specific adaptations
 
 ---
