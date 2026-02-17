@@ -7,8 +7,8 @@ A complete Subagent-Driven Development workflow system for OpenClaw, adapted fro
 Structured workflows for AI-assisted software development using OpenClaw:
 - **Brainstorming** → Clarify requirements before coding
 - **Planning** → Break features into 2-5 minute verifiable tasks  
-- **Implementation** → Codex sub-agents with self-reflection
-- **Review** → DrNeuron code reviews with severity levels
+- **Implementation** → Coder sub-agents with self-reflection
+- **Review** → Reviewer code reviews with severity levels
 - **Verification** → Prove it works, don't just say it
 
 ## 🚀 Quick Start
@@ -20,8 +20,8 @@ git clone https://github.com/hardy/openclaw-superpowers-workflow.git
 # 2. Copy skills to your OpenClaw workspace
 cp -r skills/* ~/.openclaw/workspace/skills/
 
-# 3. Copy DrNeuron integration
-cp drneuron-integration/code-review-skills.md ~/.openclaw/agents/drneuron/agent/
+# 3. Copy code review integration
+cp reviewer-integration/code-review-skills.md ~/.openclaw/agents/[your-reviewer-agent]/agent/
 
 # 4. Read the workflow guide
 cat docs/subagent-driven-development.md
@@ -42,8 +42,8 @@ cat docs/subagent-driven-development.md
 │       └── SKILL.md
 ├── docs/
 │   └── subagent-driven-development.md  # Workflow guide
-├── drneuron-integration/
-│   └── code-review-skills.md     # DrNeuron code review config
+├── reviewer-integration/
+│   └── code-review-skills.md     # Code review agent config
 └── examples/
     └── e2e-test/                 # Health Check Endpoint example
         ├── design.md
@@ -55,15 +55,15 @@ cat docs/subagent-driven-development.md
 ```
 User: "I want to add [feature]"
   ↓
-Senox (Main Agent)
+Main Agent
   ↓
 Brainstorming Skill → Design Doc
   ↓
 Writing Plans Skill → Implementation Plan
   ↓
 For Each Task:
-  - Dispatch Codex (Implementation + Self-Review)
-  - Dispatch DrNeuron (Code Review)
+  - Dispatch Coder (Implementation + Self-Review)
+  - Dispatch Reviewer (Code Review)
   - Fix Loop if REJECT
   - Commit if APPROVE
   ↓
@@ -74,7 +74,7 @@ Final Verification
 
 **No skipping allowed:**
 1. **Self-Reflection** → Implementer reviews own work
-2. **DrNeuron Review** → Mandatory with checklist
+2. **Reviewer Review** → Mandatory with checklist
 3. **Verification Output** → Show, don't tell
 
 ## 📊 Results
@@ -86,7 +86,7 @@ From our E2E test (Health Check Endpoint):
 ## 🛠️ Requirements
 
 - OpenClaw (v2026.2.13+)
-- Multiple agent configs (main, drneuron)
+- Multiple agent configs (main, coder, reviewer)
 - Git for commit history
 
 ## 📖 Learn More
