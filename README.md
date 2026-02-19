@@ -6,10 +6,11 @@ A complete Subagent-Driven Development workflow system for OpenClaw, adapted fro
 
 Structured workflows for AI-assisted software development using OpenClaw:
 - **Brainstorming** → Clarify requirements before coding
-- **Planning** → Break features into 2-5 minute verifiable tasks  
+- **Planning** → Break features into 2-5 minute verifiable tasks
 - **Implementation** → Coder sub-agents with self-reflection
 - **Review** → Reviewer code reviews with severity levels
 - **Verification** → Prove it works, don't just say it
+- **Governed Agents** → Accountable sub-agent orchestration with automatic verification gates and reputation tracking
 
 ## 🚀 Quick Start
 
@@ -38,8 +39,13 @@ cat docs/subagent-driven-development.md
 │   │   └── verification-before-completion.md
 │   ├── brainstorming/            # OpenClaw-specific
 │   │   └── SKILL.md
-│   └── writing-plans/            # OpenClaw-specific
-│       └── SKILL.md
+│   ├── writing-plans/            # OpenClaw-specific
+│   │   └── SKILL.md
+│   └── governed-agents/          # Accountable sub-agent orchestration
+│       ├── SKILL.md
+│       ├── install.sh            # One-step installer
+│       ├── README.md
+│       └── governed_agents/      # Python package (zero deps)
 ├── docs/
 │   └── subagent-driven-development.md  # Workflow guide
 ├── reviewer-integration/
@@ -93,6 +99,31 @@ From our E2E test (Health Check Endpoint):
 
 - [Original Superpowers](https://github.com/obra/superpowers) by Jesse Vincent
 - [Workflow Documentation](docs/subagent-driven-development.md)
+
+## 🛡️ Governed Agents
+
+The problem no one had solved: AI sub-agents can claim "success" without delivering.
+Governed Agents makes hallucinated success detectable and penalized automatically.
+
+```bash
+# Install
+bash skills/governed-agents/install.sh
+
+# Use
+from governed_agents.orchestrator import GovernedOrchestrator
+
+g = GovernedOrchestrator.for_task(
+    objective="Add rate limiter",
+    model="openai/gpt-5.2-codex",
+    criteria=["api/rate_limiter.py exists", "tests pass"],
+    required_files=["api/rate_limiter.py"],
+    run_tests="pytest tests/test_rate_limiter.py",
+)
+# After sub-agent completes:
+result = g.record_success()  # Verifies independently. Hallucinated success → score -1.0
+```
+
+See [skills/governed-agents/README.md](skills/governed-agents/README.md) for full documentation.
 - [Example: Health Check Endpoint](examples/e2e-test/)
 
 ## 📝 License
